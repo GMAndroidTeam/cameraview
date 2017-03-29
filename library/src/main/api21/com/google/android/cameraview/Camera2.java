@@ -162,7 +162,7 @@ class Camera2 extends CameraViewImpl {
                     ByteBuffer buffer = planes[0].getBuffer();
                     byte[] data = new byte[buffer.remaining()];
                     buffer.get(data);
-                    mCallback.onPictureTaken(data);
+                    mCallback.onPictureTaken(data, mFacing == Constants.FACING_FRONT , false);
                 }
             }
         }

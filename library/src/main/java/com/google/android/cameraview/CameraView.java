@@ -401,7 +401,7 @@ public class CameraView extends FrameLayout {
 
     /**
      * Take a picture. The result will be returned to
-     * {@link Callback#onPictureTaken(CameraView, byte[])}.
+     * {@link Callback#onPictureTaken(CameraView, byte[], boolean, boolean)}
      */
     public void takePicture() {
         mImpl.takePicture();
@@ -443,9 +443,9 @@ public class CameraView extends FrameLayout {
         }
 
         @Override
-        public void onPictureTaken(byte[] data) {
+        public void onPictureTaken(byte[] data, boolean mirror_X, boolean mirror_Y) {
             for (Callback callback : mCallbacks) {
-                callback.onPictureTaken(CameraView.this, data);
+                callback.onPictureTaken(CameraView.this, data, mirror_X, mirror_Y);
             }
         }
 
@@ -532,8 +532,10 @@ public class CameraView extends FrameLayout {
          *
          * @param cameraView The associated {@link CameraView}.
          * @param data       JPEG data.
+         * @param mirror_X  The mirror in x
+         * @param mirror_Y  The mirror in y
          */
-        public void onPictureTaken(CameraView cameraView, byte[] data) {
+        public void onPictureTaken(CameraView cameraView, byte[] data, boolean mirror_X, boolean mirror_Y) {
         }
     }
 

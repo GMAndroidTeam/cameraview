@@ -75,7 +75,7 @@ abstract class CameraViewImpl {
 
         void onCameraClosed();
 
-        void onPictureTaken(byte[] data);
+        void onPictureTaken(byte[] data, boolean mirror_X, boolean mirror_Y);
 
     }
 

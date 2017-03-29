@@ -19,6 +19,7 @@ package com.google.android.cameraview.demo;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -288,20 +289,24 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         @Override
-        public void onPictureTaken(CameraView cameraView, final byte[] data) {
+        public void onPictureTaken(CameraView cameraView, final byte[] data, final boolean mirror_X, final boolean mirror_Y) {
             Log.d(TAG, "onPictureTaken " + data.length);
             Toast.makeText(cameraView.getContext(), R.string.picture_taken, Toast.LENGTH_SHORT)
                     .show();
             getBackgroundHandler().post(new Runnable() {
                 @Override
                 public void run() {
-                    File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                    File file = new File(getCacheDir(),
                             "picture.jpg");
                     OutputStream os = null;
                     try {
                         os = new FileOutputStream(file);
                         os.write(data);
                         os.close();
+                        startActivity(new Intent(MainActivity.this, PreviewActivity.class).
+                                putExtra("image_url", file.getAbsolutePath()).
+                                putExtra("mirror_X", mirror_X).
+                                putExtra("mirror_Y", mirror_Y));
                     } catch (IOException e) {
                         Log.w(TAG, "Cannot write to " + file, e);
                     } finally {

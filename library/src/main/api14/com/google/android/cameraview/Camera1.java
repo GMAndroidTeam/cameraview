@@ -242,7 +242,7 @@ class Camera1 extends CameraViewImpl {
                 @Override
                 public void onPictureTaken(byte[] data, Camera camera) {
                     isPictureCaptureInProgress.set(false);
-                    mCallback.onPictureTaken(data);
+                    mCallback.onPictureTaken(data, false, mCameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT);
                     camera.cancelAutoFocus();
                     camera.startPreview();
                 }
