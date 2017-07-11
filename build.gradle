@@ -35,3 +35,5 @@ ext {
     targetSdkVersion = 25
     supportLibraryVersion = '25.3.0'
 }
+
+tasks.findByPath(":library:androidJavadocs").enabled = false

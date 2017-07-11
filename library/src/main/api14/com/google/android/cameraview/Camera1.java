@@ -331,7 +331,11 @@ class Camera1 extends CameraViewImpl {
         final Camera.Size currentSize = mCameraParameters.getPictureSize();
         if (currentSize.width != size.getWidth() || currentSize.height != size.getHeight()) {
             // Largest picture size in this ratio
-            final Size pictureSize = mPictureSizes.sizes(mAspectRatio).last();
+            SortedSet<Size> pictureSizes = mPictureSizes.sizes(mAspectRatio);
+            if (null == pictureSizes || pictureSizes.size() == 0) {
+                return;
+            }
+            final Size pictureSize = pictureSizes.last();
             if (mShowingPreview) {
                 mCamera.stopPreview();
             }
